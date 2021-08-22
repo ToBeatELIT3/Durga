@@ -20,6 +20,7 @@ use username::get_user_name;
 
 // --------------------
 
+
 pub fn command_loop(args: Vec<String>) {
     let my_username = get_user_name().expect("[-] Error Getting Username");
 
@@ -33,20 +34,28 @@ pub fn command_loop(args: Vec<String>) {
         io::stdin().read_line(&mut my_command)
             .expect("[-] Error Getting Input");
 
-        
-        
-        if my_command == "s\n" {
-            println!("[*] Scanning {}", &args[1]);
-            let my_target = IpAddr::from_str(&args[1])
-                .expect("[-] Invalid IP Address");
+        // Compare Command Input to Commands
+        match my_command.as_ref() {
+
+            // "s" for Port Scan
+            "s\n" => {
+                println!("[*] Scanning {}", &args[1]);
+                let my_target = IpAddr::from_str(&args[1])
+                    .expect("[-] Invalid IP Address");
             
                 for x in 1..1001 {
 
-                if scan_port(my_target, x) == 1 {
-                    println!("[*] {} OPEN", x);
+                    if scan_port(my_target, x) == 1 {
+                        println!("[*] {} OPEN", x);
+                    
+                    }
                 }
-            }
+
+            },
+
+            _ => println!("nothing")
         }
+        
 
     }
 }
