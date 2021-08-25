@@ -4,7 +4,6 @@ use std::net::{IpAddr, ToSocketAddrs, SocketAddr};
 use std::time::Duration;
 use std::fs;
 
-
 use tokio;
 use tokio::net::TcpStream;
 
@@ -12,7 +11,7 @@ use futures::stream;
 use futures::StreamExt;
 
 mod ports;
-
+mod extensions;
 
 pub fn resolve_target(target: &String) -> Result<IpAddr, Box<dyn std::error::Error>> {
     match target.parse() {
@@ -24,7 +23,6 @@ pub fn resolve_target(target: &String) -> Result<IpAddr, Box<dyn std::error::Err
     }
 }
 
-
 pub async fn scan(target: IpAddr, full: bool, concurrency: usize, timeout: Duration) {
     let ports = stream::iter(get_ports(full));
 
@@ -33,16 +31,15 @@ pub async fn scan(target: IpAddr, full: bool, concurrency: usize, timeout: Durat
         .await;
 }
 
-
 async fn scan_port(target: IpAddr, current_port: u16, timeout: Duration) {
     let socket_address = SocketAddr::new(target.clone(), current_port);
     if tokio::time::timeout(timeout, TcpStream::connect(&socket_address))
         .await
         .is_ok() {
         println!("{} OPEN", current_port);
+        extensions::run_extensions(current_port);
     }
 }
-
 
 fn get_ports(all_ports: bool) -> Box<dyn Iterator<Item = u16>> {
     if all_ports {
@@ -51,7 +48,6 @@ fn get_ports(all_ports: bool) -> Box<dyn Iterator<Item = u16>> {
         Box::new(ports::COMMON_PORTS.to_owned().into_iter())
     }
 }
-
 
 pub fn banner() {
     let my_banner = fs::read_to_string("resources/banner.txt")
