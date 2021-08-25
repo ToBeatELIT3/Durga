@@ -10,7 +10,6 @@ use tokio::net::TcpStream;
 use futures::stream;
 use futures::StreamExt;
 
-mod ports;
 mod extensions;
 
 pub fn resolve_target(target: &String) -> Result<IpAddr, Box<dyn std::error::Error>> {
@@ -59,7 +58,7 @@ fn get_ports(all_ports: bool) -> Box<dyn Iterator<Item = u16>> {
     if all_ports {
         Box::new((1..=u16::MAX).into_iter())
     } else {
-        Box::new(ports::COMMON_PORTS.to_owned().into_iter())
+        Box::new(extensions::COMMON_PORTS.to_owned().into_iter())
     }
 }
 
