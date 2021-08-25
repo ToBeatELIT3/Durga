@@ -33,11 +33,17 @@ pub async fn scan(target: IpAddr, full: bool, concurrency: usize, timeout: Durat
 
 async fn scan_port(target: IpAddr, current_port: u16, timeout: Duration) {
     let socket_address = SocketAddr::new(target.clone(), current_port);
-    if tokio::time::timeout(timeout, TcpStream::connect(&socket_address))
-        .await
-        .is_ok() {
-        println!("{} OPEN", current_port);
-        extensions::run_extensions(current_port);
+
+    let connection_status = tokio::time::timeout(timeout, TcpStream::connect(&socket_address))
+    .await
+    .unwrap();
+    
+    match connection_status {
+        Ok(_current_stream) => {
+            println!{"[*] {} OPEN", current_port}
+            extensions::run_extensions(current_port);
+        }
+        _ => ()
     }
 }
 
