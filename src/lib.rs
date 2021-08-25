@@ -35,13 +35,21 @@ async fn scan_port(target: IpAddr, current_port: u16, timeout: Duration) {
     let socket_address = SocketAddr::new(target.clone(), current_port);
 
     let connection_status = tokio::time::timeout(timeout, TcpStream::connect(&socket_address))
-    .await
-    .unwrap();
+    .await;
     
     match connection_status {
-        Ok(_current_stream) => {
-            println!{"[*] {} OPEN", current_port}
-            extensions::run_extensions(current_port);
+
+        Ok(current_stream_wrapper) => {
+
+            match current_stream_wrapper {
+
+                Ok(_current_stream) => {
+
+                    println!{"[*] {} OPEN", current_port};
+                    extensions::run_extensions(current_port);
+                }
+                _ => ()   
+            }
         }
         _ => ()
     }
