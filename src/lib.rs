@@ -44,7 +44,7 @@ async fn scan_port(target: IpAddr, current_port: u16, timeout: Duration) {
 
                 Ok(_current_stream) => {
 
-                    println!{"[*] {} OPEN", current_port};
+                    println!{"[*] OPEN PORT {}", current_port};
                     extensions::run_extensions(current_port);
                 }
                 _ => ()   

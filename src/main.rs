@@ -1,6 +1,6 @@
 // FalseGhost
 
-use durga;
+use durga::{self, banner};
 use std::env;
 use std::time::Duration;
 
@@ -14,6 +14,7 @@ mod extensions;
 #[tokio::main]
 async fn main() {
 
+    banner();
     let yaml = load_yaml!("cli.yaml");
     let argv = App::from_yaml(yaml).get_matches();
     
