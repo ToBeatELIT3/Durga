@@ -1,5 +1,6 @@
 // FalseGhost
 
+#[allow(dead_code)]
 pub fn run_extensions(open_port: u16) {
     match open_port {
         22 => {
