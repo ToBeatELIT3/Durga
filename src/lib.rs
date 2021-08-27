@@ -26,17 +26,17 @@ pub async fn scan(target: IpAddr, full: bool, concurrency: usize, timeout: Durat
     let ports = stream::iter(get_ports(full));
 
     ports
-        .for_each_concurrent(concurrency, |port| scan_port(target, port, timeout))
+        .for_each_concurrent(concurrency, |port| scan_port(target, port, timeout, full))
         .await;
 }
 
-async fn scan_port(target: IpAddr, current_port: u16, timeout: Duration) {
+async fn scan_port(target: IpAddr, current_port: u16, timeout: Duration, full: bool) {
     let socket_address = SocketAddr::new(target.clone(), current_port);
     let connection_status = tokio::time::timeout(timeout, TcpStream::connect(&socket_address))
     .await;
   
-    if current_port % 10000  == 0 {
-        println!("[-] STATUS {}", current_port);
+    if full && current_port % 10000  == 0 {
+        println!("[-] Status {}", current_port);
     } 
 
     match connection_status {
