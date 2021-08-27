@@ -1,0 +1,17 @@
+name: durga
+version: "0.1.0"
+author: FalseGhost <tobeatelite@gmail.com>
+about: Extensible Recon Tool
+args:
+    - target_ip:
+        short: t
+        long: --target
+        value_name: target
+        help: Hostname / IP to Scan
+        takes_value: true
+        required: true
+        index: 1
+    - full_scan:
+        help: Scan all Ports
+        required: false
+        index: 2
