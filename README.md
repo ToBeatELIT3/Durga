@@ -1,4 +1,5 @@
 ## Durga
 
+### Extensible Recon Tool
 
-Usage: ```cargo run <TARGET_IP>```
+Usage: ```cargo run <target> [FLAGS]```
