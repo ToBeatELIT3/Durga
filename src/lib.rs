@@ -2,7 +2,6 @@
 
 use std::net::{IpAddr, ToSocketAddrs, SocketAddr};
 use std::time::Duration;
-use std::fs;
 
 use tokio;
 use tokio::net::TcpStream;
@@ -79,8 +78,6 @@ fn get_ports(all_ports: bool) -> Box<dyn Iterator<Item = u16>> {
 }
 
 pub fn banner() {
-    let my_banner = fs::read_to_string("resources/banner.txt")
-        .expect("[-] Error Getting Banner");
-
+    let my_banner = include_str!("../resources/banner.txt");
     println!("{}", my_banner)
 }
