@@ -22,7 +22,7 @@ async fn main() {
     let my_target = durga::resolve_target(&unresolved_target.to_string());
     println!("[*] Scanning {} -> {}", argv.value_of("target_ip").unwrap(), durga::resolve_target(&unresolved_target.to_string()).unwrap());
 
-    
+    durga::run_command(format!("rm -f -- /tmp/{}.txt", unresolved_target).as_str());
     match argv.occurrences_of("full_scan") {
         0 => {
             durga::scan(my_target.unwrap(), false, 1024, timeout, unresolved_target)

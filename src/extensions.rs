@@ -47,7 +47,7 @@ pub fn run_extensions(open_port: u16, unresolved_target: &str) {
             let ffuf_execution = CommandModule {
                 title: "FFUF".to_string(),
                 command_exec: format!(
-                    "ffuf -u {}/FUZZ -w /home/tobeatelite/HTB/SecLists/Discovery/Web-Content/directory-list-2.3-medium.txt", unresolved_target
+                    "ffuf -u {}/FUZZ -w directory-list-2.3-medium.txt", unresolved_target
                 )};
             
                 ffuf_execution.start();
