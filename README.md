@@ -4,15 +4,15 @@
 
 ```
 Durga is an enumeration tool, designed to make it easy to preform rapid enumeration that 
-
 fits with your workflow. At it's core is a fast and effiecient portscanner, 
-
 that runs custom "Modules" specific to the open ports of the target
 
 ```
 
 ```
-I am by no means a great programmer, and there are lots of places where this tool can be improved, if you have any neat additions, or pherhaps streamlined systems from the tool, feel free to send a Push Request. It would be greatly appreciated :)
+I am by no means a great programmer, and there are lots of places where this tool can be 
+improved, if you have any neat additions, or pherhaps streamlined systems from the tool, feel
+free to send a Push Request. It would be greatly appreciated :)
 
     - FalseGhost
 ```
