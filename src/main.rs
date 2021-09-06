@@ -41,6 +41,6 @@ async fn main() {
     for line in open_ports_list.lines() {
         extensions::run_extensions(line.parse::<u16>().unwrap(), unresolved_target);
     }
-
-    durga::run_command(format!("rm /tmp/{}.txt", unresolved_target).as_str());   
+    
+    durga::run_command(format!("rm /tmp/{}.txt", unresolved_target).as_str()); 
 }
