@@ -3,7 +3,11 @@
 ## Extensible Recon Tool
 
 ```
-Durga is an enumeration tool, designed to make it easy to preform rapid enumeration that fits with your workflow. At it's core is a fast and effiecient portscanner, that runs custom "Modules" specific to the open ports of the target
+Durga is an enumeration tool, designed to make it easy to preform rapid enumeration that 
+
+fits with your workflow. At it's core is a fast and effiecient portscanner, 
+
+that runs custom "Modules" specific to the open ports of the target
 
 ```
 
