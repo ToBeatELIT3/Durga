@@ -38,18 +38,17 @@ impl CommandModule {
 
 #[allow(dead_code)]
 pub fn run_extensions(open_port: u16, unresolved_target: &str) {
+
+    // Modules Go Here
+
+    let ffuf_execution = CommandModule {
+        title: "FFUF".to_string(),
+        command_exec: format!(
+            "ffuf -u {}/FUZZ -w directory-list-2.3-medium.txt", unresolved_target
+        )};
+
     match open_port {
-        22 => {
-        
-            ();       
-        },
         80 => {
-            let ffuf_execution = CommandModule {
-                title: "FFUF".to_string(),
-                command_exec: format!(
-                    "ffuf -u {}/FUZZ -w directory-list-2.3-medium.txt", unresolved_target
-                )};
-            
                 ffuf_execution.start();
         }
         _ => ()

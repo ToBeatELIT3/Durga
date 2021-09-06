@@ -1,18 +1,55 @@
-## Durga
+# Durga
 
-<span style="color:lightblue">
-  ██████╗ ██╗   ██╗██████╗  ██████╗  █████╗ 
+## Extensible Recon Tool
 
-  ██╔══██╗██║   ██║██╔══██╗██╔════╝ ██╔══██╗
+```
+Durga is an enumeration tool, designed to make it easy to preform rapid enumeration that fits with your workflow. At it's core is a fast and effiecient portscanner, that runs custom "Modules" specific to the open ports of the target
 
-  ██║  ██║██║   ██║██████╔╝██║  ███╗███████║
+```
 
-  ██║  ██║██║   ██║██╔══██╗██║   ██║██╔══██║
+## Creating Modules
 
-  ██████╔╝╚██████╔╝██║  ██║╚██████╔╝██║  ██║
 
-  ╚═════╝  ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝ 0.1.0
-</span>
-### Extensible Recon Tool
+```rust
+// src/extensions.rs
 
-Usage: ```cargo run <target> [FLAGS]```
+pub fn run_extensions(open_port: u16, unresolved_target: &str) {
+
+    // Modules Go Here
+
+    let ffuf_execution = CommandModule { // Create a "CommandModule"
+        title: "FFUF".to_string(), // Create a "title", simply name your module
+        command_exec: format!( // The "format!" allows us to insert args 
+            // The Command that will be run when the module is invoked
+            "ffuf -u {}/FUZZ -w directory-list-2.3-medium.txt", unresolved_target 
+        )
+    };
+
+    // This will iterate for every open port
+    match open_port {
+        // Create the bracket containing the Port that will invoke your module, in this case: 80
+        80 => {
+            // Run the Module :D
+            ffuf_execution.start();
+        }
+        _ => ()
+        
+    }
+}
+
+// Its That Easy!
+
+```
+
+## Usage:
+
+```
+> Compile:
+    cargo build --release && sudo mv target/release/durga /bin/durga
+
+> From Cargo:
+    cargo run <target> [FLAGS]
+    
+    ex: cargo run developer.htb -f
+
+```
