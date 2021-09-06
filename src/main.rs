@@ -25,12 +25,12 @@ async fn main() {
     durga::run_command(format!("rm -f -- /tmp/{}.txt", unresolved_target).as_str());
     match argv.occurrences_of("full_scan") {
         0 => {
-            durga::scan(my_target.unwrap(), false, 1024, timeout, unresolved_target)
+            durga::scan(my_target.unwrap(), false, 1000, timeout, unresolved_target)
                 .await;
         },
         1 => {
             println!("[*] Running Full TCP Scan");
-            durga::scan(my_target.unwrap(), true, 1024, timeout, unresolved_target)
+            durga::scan(my_target.unwrap(), true, 1000, timeout, unresolved_target)
                 .await;
         }
         _ => ()
