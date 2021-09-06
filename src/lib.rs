@@ -16,11 +16,6 @@ use std::os::raw::c_char;
 mod extensions;
 mod ports;
 
-pub struct CommandModule {
-    title: String,
-    command_exec: String,
-}
-
 pub fn run_command(my_command: &str) {
     extern "C" { fn system(my_command: *const c_char) -> *const c_char; }
     let cstring_command = CString::new(my_command).expect("CString::new failed");

@@ -23,7 +23,7 @@ pub struct CommandModule {
 
 impl CommandModule {
     fn start(self) {
-        print!("DURGA> ({}) Y/n > ", self.title);
+        print!("[*] {} > (Y/n) ", self.title);
         io::stdout().flush().unwrap();
         let mut result = String::new();
     
@@ -38,18 +38,19 @@ impl CommandModule {
 
 #[allow(dead_code)]
 pub fn run_extensions(open_port: u16, unresolved_target: &str) {
-
-    let ffuf_execution = CommandModule{title: "FFUF".to_string(), command_exec: format!("/bin/ffuf -u {}/FUZZ -w /home/tobeatelite/HTB/SecLists/Discovery/Web-Content/directory-list-2.3-medium.txt", unresolved_target)};
-    let nmap_scan = CommandModule{title: "nmap -p-".to_string(), command_exec: format!("nmap {} -p-", unresolved_target)};
-
     match open_port {
         22 => {
         
-            println!("[*]lmaoo them mfs using ssh 💀 ");       
+            ();       
         },
         80 => {
-            ffuf_execution.start();
-            nmap_scan.start();
+            let ffuf_execution = CommandModule {
+                title: "FFUF".to_string(),
+                command_exec: format!(
+                    "ffuf -u {}/FUZZ -w /home/tobeatelite/HTB/SecLists/Discovery/Web-Content/directory-list-2.3-medium.txt", unresolved_target
+                )};
+            
+                ffuf_execution.start();
         }
         _ => ()
         
