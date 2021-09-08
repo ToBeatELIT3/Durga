@@ -1,11 +1,6 @@
 // FalseGhost
 
-#[macro_use]
-extern crate clap;
 use clap::App;
-
-use tokio;
-use durga;
 
 mod extensions;
 
@@ -13,24 +8,24 @@ mod extensions;
 async fn main() {
 
     durga::banner();
-    let yaml = load_yaml!("../resources/cli.yaml");
+
+    let yaml = clap::load_yaml!("../resources/cli.yaml");
     let argv = App::from_yaml(yaml).get_matches();
     
     let unresolved_target = argv.value_of("target_ip").unwrap();
-    let timeout = std::time::Duration::from_secs(1);
-    
     let my_target = durga::resolve_target(&unresolved_target.to_string());
+
     println!("[*] Scanning {} -> {}", argv.value_of("target_ip").unwrap(), durga::resolve_target(&unresolved_target.to_string()).unwrap());
 
     durga::run_command(format!("rm -f -- /tmp/{}.txt", unresolved_target).as_str());
     match argv.occurrences_of("full_scan") {
         0 => {
-            durga::scan(my_target.unwrap(), false, 1000, timeout, unresolved_target)
+            durga::scan(my_target.unwrap(), false, unresolved_target)
                 .await;
         },
         1 => {
             println!("[*] Running Full TCP Scan");
-            durga::scan(my_target.unwrap(), true, 1000, timeout, unresolved_target)
+            durga::scan(my_target.unwrap(), true, unresolved_target)
                 .await;
         }
         _ => ()
