@@ -1,18 +1,35 @@
 // FalseGhost
 
 use std::net::{IpAddr, ToSocketAddrs, SocketAddr};
+use std::io::{ Write, stdout, stdin };
+use std::os::raw::c_char;
 use std::time::Duration;
+use std::ffi::CString;
 
+use futures::{ StreamExt, stream };
 use tokio::net::TcpStream;
 
-use futures::stream;
-use futures::StreamExt;
-
-use std::ffi::CString;
-use std::os::raw::c_char;
-
-mod extensions;
 mod ports;
+
+pub struct CommandModule {
+    pub title: String,
+    pub command_exec: String,
+}
+
+impl CommandModule {
+    pub fn start(self) {
+        print!("[*] {} > (Y/n) ", self.title);
+        stdout().flush().unwrap();
+        let mut result = String::new();
+    
+        stdin().read_line(&mut result)
+            .expect("[-]Error Getting Input");
+        
+        if result == "Y\n" || result == "\n" {
+            run_command(&self.command_exec);
+        } 
+    }
+}
 
 pub fn run_command(my_command: &str) {
     extern "C" { fn system(my_command: *const c_char) -> *const c_char; }

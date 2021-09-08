@@ -1,31 +1,33 @@
 // FalseGhost
 
 use clap::App;
+use durga::*;
 
 mod extensions;
 
 #[tokio::main]
 async fn main() {
 
-    durga::banner();
+    banner();
 
     let yaml = clap::load_yaml!("../resources/cli.yaml");
     let argv = App::from_yaml(yaml).get_matches();
     
     let unresolved_target = argv.value_of("target_ip").unwrap();
-    let my_target = durga::resolve_target(&unresolved_target.to_string());
+    let my_target = resolve_target(&unresolved_target.to_string());
 
-    println!("[*] Scanning {} -> {}", argv.value_of("target_ip").unwrap(), durga::resolve_target(&unresolved_target.to_string()).unwrap());
-
-    durga::run_command(format!("rm -f -- /tmp/{}.txt", unresolved_target).as_str());
+    println!("[*] Scanning {} -> {}", argv.value_of("target_ip").unwrap(), resolve_target(&unresolved_target.to_string()).unwrap());
+    
+    run_command(format!("rm -f -- /tmp/{}.txt", unresolved_target).as_str());
+    
     match argv.occurrences_of("full_scan") {
         0 => {
-            durga::scan(my_target.unwrap(), false, unresolved_target)
+            scan(my_target.unwrap(), false, unresolved_target)
                 .await;
         },
         1 => {
             println!("[*] Running Full TCP Scan");
-            durga::scan(my_target.unwrap(), true, unresolved_target)
+            scan(my_target.unwrap(), true, unresolved_target)
                 .await;
         }
         _ => ()
@@ -37,5 +39,5 @@ async fn main() {
         extensions::run_extensions(line.parse::<u16>().unwrap(), unresolved_target);
     }
     
-    durga::run_command(format!("rm /tmp/{}.txt", unresolved_target).as_str()); 
+    run_command(format!("rm /tmp/{}.txt", unresolved_target).as_str()); 
 }
