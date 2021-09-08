@@ -36,7 +36,6 @@ impl CommandModule {
     }
 }
 
-#[allow(dead_code)]
 pub fn run_extensions(open_port: u16, unresolved_target: &str) {
 
     // Modules Go Here
