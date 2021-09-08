@@ -1,5 +1,6 @@
 // FalseGhost
 
+use termion::color;
 use clap::App;
 use durga::*;
 
@@ -16,7 +17,14 @@ async fn main() {
     let unresolved_target = argv.value_of("target_ip").unwrap();
     let my_target = resolve_target(&unresolved_target.to_string());
 
-    println!("[*] Scanning {} -> {}", argv.value_of("target_ip").unwrap(), resolve_target(&unresolved_target.to_string()).unwrap());
+    println!("[*] Scanning {}{}{} -> {}{}{}",
+        color::Fg(color::LightBlue),
+        argv.value_of("target_ip").unwrap(),
+        color::Fg(color::Reset),
+        color::Fg(color::LightBlue),
+        resolve_target(&unresolved_target.to_string()).unwrap(),
+        color::Fg(color::Reset)
+    );
     
     run_command(format!("rm -f -- /tmp/{}.txt", unresolved_target).as_str());
     

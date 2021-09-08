@@ -8,6 +8,7 @@ use std::ffi::CString;
 
 use futures::{ StreamExt, stream };
 use tokio::net::TcpStream;
+use termion::color;
 
 mod ports;
 
@@ -18,7 +19,7 @@ pub struct CommandModule {
 
 impl CommandModule {
     pub fn start(self) {
-        print!("[*] {} > (Y/n) ", self.title);
+        print!("[*] {} > {}(Y/n){} ", self.title, color::Fg(color::LightYellow), color::Fg(color::Reset));
         stdout().flush().unwrap();
         let mut result = String::new();
     
@@ -64,12 +65,12 @@ async fn scan_port(target: IpAddr, current_port: u16, full: bool, target_name: &
     .await;
   
     if full && current_port % 10000  == 0 {
-        println!("[-] Status {}", current_port);
+        println!("[-] Status {}{}{}",color::Fg(color::LightMagenta), current_port, color::Fg(color::Reset));
     } 
 
     if let Ok(Ok(_current_stream)) = connection_status {
         run_command(format!("echo {} >> /tmp/{}.txt", current_port, target_name).as_str());
-        println!{"[*] OPEN PORT {}", current_port};
+        println!{"[*] OPEN PORT {}{}{}",color::Fg(color::LightGreen), current_port, color::Fg(color::Reset)};
     }
 }
 
