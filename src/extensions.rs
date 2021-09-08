@@ -39,7 +39,7 @@ impl CommandModule {
 pub fn run_extensions(open_port: u16, unresolved_target: &str) {
 
     // Modules Go Here
-    
+    let ldap_nse = CommandModule{title: "LDAP NSE".to_string(), command_exec: format!("nmap -sC -p 636 --script 'ldap* and not brute' {}", unresolved_target)};
     match open_port {
         22 => {
             // SSH enum for example
@@ -47,7 +47,11 @@ pub fn run_extensions(open_port: u16, unresolved_target: &str) {
         },
         80 => {
             // HTTP enum for example
+
             (); // Placeholder
+        },
+        636 => {
+            ldap_nse.start()
         }
         _ => ()
         

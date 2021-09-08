@@ -3,7 +3,6 @@
 use std::net::{IpAddr, ToSocketAddrs, SocketAddr};
 use std::time::Duration;
 
-use tokio;
 use tokio::net::TcpStream;
 
 use futures::stream;
