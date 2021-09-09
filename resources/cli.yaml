@@ -11,3 +11,7 @@ args:
     - full_scan:
         short: f
         help: Full TCP Scan
+    - project_output:
+        short: p
+        help: Output Scripts Into Folder
+
