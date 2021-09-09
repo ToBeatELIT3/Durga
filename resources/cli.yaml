@@ -10,8 +10,10 @@ args:
         index: 1
     - full_scan:
         short: f
+        long: --full-scan
         help: Full TCP Scan
     - project_output:
         short: p
+        long: --project
         help: Output Scripts Into Folder
 
