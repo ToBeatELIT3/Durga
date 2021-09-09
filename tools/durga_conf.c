@@ -15,12 +15,22 @@ void error() {
 void upgrade() {
     printf("Creating Copy of ~/.durga/Durga/src/extensions.rs...\n");
     system("mv ~/.durga/Durga/src/extensions.rs /tmp/durgaexttmp.rs");
+
     printf("Deleting Old Version...\nGetting New One...\n");
     system("rm -rf ~/.durga/Durga");
     system("git clone https://github.com/ToBeatELIT3/Durga ~/.durga/Durga");
+    
     printf("Moving Extensions back...\n");
     system("rm ~/.durga/Durga/src/extensions.rs");
     system("mv /tmp/durgaexttmp.rs ~/.durga/Durga/src/extensions.rs");
+    
+    printf("Builing Durga..\n");
+    system("sudo rm /bin/durga");
+    system("sudo rm /bin/durga_conf");
+
+    system("sudo gcc ~/.durga/Durga/tools/durga_conf.c -o /bin/durga_conf");
+    system("cd ~/.durga/Durga && cargo build --release && sudo mv target/release/durga /bin/durga");
+    
     printf("Done!\n");
 }
 
