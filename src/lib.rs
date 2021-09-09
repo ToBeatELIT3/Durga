@@ -1,14 +1,14 @@
 // FalseGhost
 
-use std::net::{IpAddr, ToSocketAddrs, SocketAddr};
-use std::io::{ Write, stdout, stdin };
+use std::ffi::CString;
+use std::io::{stdin, stdout, Write};
+use std::net::{IpAddr, SocketAddr, ToSocketAddrs};
 use std::os::raw::c_char;
 use std::time::Duration;
-use std::ffi::CString;
 
-use futures::{ StreamExt, stream };
-use tokio::net::TcpStream;
+use futures::{stream, StreamExt};
 use termion::color;
+use tokio::net::TcpStream;
 
 mod ports;
 
@@ -19,21 +19,29 @@ pub struct CommandModule {
 
 impl CommandModule {
     pub fn start(self) {
-        print!("[*] {} > {}(Y/n){} ", self.title, color::Fg(color::LightYellow), color::Fg(color::Reset));
+        print!(
+            "[*] {} > {}(Y/n){} ",
+            self.title,
+            color::Fg(color::LightYellow),
+            color::Fg(color::Reset)
+        );
         stdout().flush().unwrap();
         let mut result = String::new();
-    
-        stdin().read_line(&mut result)
+
+        stdin()
+            .read_line(&mut result)
             .expect("[-]Error Getting Input");
-        
+
         if result == "Y\n" || result == "\n" {
             run_command(&self.command_exec);
-        } 
+        }
     }
 }
 
 pub fn run_command(my_command: &str) {
-    extern "C" { fn system(my_command: *const c_char) -> *const c_char; }
+    extern "C" {
+        fn system(my_command: *const c_char) -> *const c_char;
+    }
     let cstring_command = CString::new(my_command).expect("CString::new failed");
 
     unsafe {
@@ -61,16 +69,21 @@ pub async fn scan(target: IpAddr, full: bool, target_name: &str) {
 
 async fn scan_port(target: IpAddr, current_port: u16, full: bool, target_name: &str) {
     let socket_address = SocketAddr::new(target, current_port);
-    let connection_status = tokio::time::timeout(Duration::from_secs(1), TcpStream::connect(&socket_address))
-    .await;
-  
-    if full && current_port % 10000  == 0 {
-        println!("[-] Status {}{}{}",color::Fg(color::LightMagenta), current_port, color::Fg(color::Reset));
-    } 
+    let connection_status =
+        tokio::time::timeout(Duration::from_secs(1), TcpStream::connect(&socket_address)).await;
+
+    if full && current_port % 10000 == 0 {
+        println!(
+            "[-] Status {}{}{}",
+            color::Fg(color::LightMagenta),
+            current_port,
+            color::Fg(color::Reset)
+        );
+    }
 
     if let Ok(Ok(_current_stream)) = connection_status {
         run_command(format!("echo {} >> /tmp/{}.txt", current_port, target_name).as_str());
-        println!{"[*] OPEN PORT {}{}{}",color::Fg(color::LightGreen), current_port, color::Fg(color::Reset)};
+        println! {"[*] OPEN PORT {}{}{}",color::Fg(color::LightGreen), current_port, color::Fg(color::Reset)};
     }
 }
 
