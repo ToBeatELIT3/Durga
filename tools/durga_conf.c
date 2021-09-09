@@ -11,6 +11,7 @@ void error() {
 	printf("Edit: Edit Extensions File with $EDITOR\n");
 }
 
+// wORKING
 void upgrade() {
     printf("Creating Copy of ~/.durga/Durga/src/extensions.rs...\n");
     system("mv ~/.durga/Durga/src/extensions.rs /tmp/durgaexttmp.rs");
@@ -23,6 +24,7 @@ void upgrade() {
     printf("Done!\n");
 }
 
+// WORKING
 void update() {
     printf("Builing Durga..\n");
     system("sudo rm /bin/durga");
@@ -40,7 +42,7 @@ int main(int argc, char *argv[]) {
     } else {
 	    if (strcmp( argv[1], "upgrade") == 0) { upgrade(); }
 	    else if (strcmp( argv[1], "update") == 0) { update(); }
-	    if (strcmp( argv[1], "edit") == 0) { edit(); }
+	    else if (strcmp( argv[1], "edit") == 0) { edit(); }
 	    else { error(); }
     }
     return 0;
