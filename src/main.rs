@@ -46,5 +46,5 @@ async fn main() {
         extensions::run_extensions(line.parse::<u16>().unwrap(), unresolved_target);
     }
 
-    run_command(format!("rm /tmp/{}.txt", unresolved_target).as_str());
+    run_command(format!("rm -f -- /tmp/{}.txt", unresolved_target).as_str());
 }
