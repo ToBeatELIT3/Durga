@@ -1,6 +1,7 @@
 // FalseGhost
 
 #include <stdlib.h>
+#include <stdio.h>
 
 int main() {
     system("$EDITOR ~/.durga/Durga/src/extensions.rs");
