@@ -4,8 +4,6 @@ use clap::App;
 use durga::*;
 use termion::color;
 
-use crate::extensions::auto_run;
-
 mod extensions;
 
 #[tokio::main]
@@ -49,5 +47,5 @@ async fn main() {
     }
 
     run_command(format!("rm -f -- /tmp/{}.txt", unresolved_target).as_str());
-    auto_run(unresolved_target);
+    extensions::auto_run(unresolved_target);
 }
