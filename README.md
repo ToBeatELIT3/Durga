@@ -7,7 +7,8 @@ Don't Try Harder, Enumerate Harder
 ```
 
 ```
-Durga is an enumeration tool, designed to make it easy to preform automatic and rapid enumeration that fits with *your* workflow. At it's core is a fast and effiecient 
+Durga is an enumeration tool, designed to make it easy to preform automatic and rapid 
+enumeration that fits with *your* workflow. At it's core is a fast and effiecient 
 portscanner, that runs custom "Modules" specific to the open ports of the target.
 ```
 
