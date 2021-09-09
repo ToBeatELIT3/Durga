@@ -2,6 +2,16 @@
 
 use durga::CommandModule;
 
+pub fn auto_run(unresolved_target: &str) {
+    let nmap_standard = CommandModule{title: "NMAP SCAN".to_string(), command_exec: format!("sudo nmap -vv -sC -sV -p- {}", unresolved_target)};
+    let nmap_short = CommandModule{title: "NMAP SHORT".to_string(), command_exec: format!("sudo nmap -vv -sC -sV {}", unresolved_target)};
+    let nmap_vuln = CommandModule{title: "NMAP VULN".to_string(), command_exec: format!("sudo nmap {} --script vuln", unresolved_target)};
+
+    nmap_standard.start();
+    nmap_short.start();
+    nmap_vuln.start();
+}
+
 pub fn run_extensions(open_port: u16, unresolved_target: &str) {
 
     // Modules Go Here
