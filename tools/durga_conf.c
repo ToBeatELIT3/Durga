@@ -5,10 +5,10 @@
 #include <string.h>
 
 void error() {
-	printf("Usage: durga_conf ['update', 'upgrade', 'edit']");
-	printf("Update: Re-Build Durga w/ your updated extensions");
-	printf("Upgrade: Get Latest Release from GH, saving your extensions");
-	printf("Edit: Edit Extensions File with $EDITOR");
+	printf("Usage: durga_conf ['update', 'upgrade', 'edit']\n");
+	printf("Update: Re-Build Durga w/ your updated extensions\n");
+	printf("Upgrade: Get Latest Release from GH, saving your extensions\n");
+	printf("Edit: Edit Extensions File with $EDITOR\n");
 }
 
 void upgrade() {
@@ -24,7 +24,7 @@ void upgrade() {
 }
 
 void update() {
-    printf("Builing Durga..");
+    printf("Builing Durga..\n");
     system("sudo rm /bin/durga");
     system("cd ~/.durga/Durga && cargo build --release && sudo mv target/release/durga /bin/durga");
     printf("Done!\n");
