@@ -33,7 +33,7 @@ void update() {
 }
 
 void edit() {
-    system("$EDITOR ~/.durga/Durga/src/extensions.rs");
+    system("vim ~/.durga/Durga/src/extensions.rs");
 }
 
 int main(int argc, char *argv[]) {
