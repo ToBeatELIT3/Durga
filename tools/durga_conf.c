@@ -36,12 +36,12 @@ void edit() {
 
 int main(int argc, char *argv[]) {
     if (argc != 2) {
-	error();
+	    error();
     } else {
-	if (strcmp( argv[2], "upgrade") == 0) { upgrade(); }
-	else if (strcmp( argv[2], "update") == 0) { update(); }
-	if (strcmp( argv[2], "edit") == 0) { edit(); }
-	else { error(); }
+	    if (strcmp( argv[1], "upgrade") == 0) { upgrade(); }
+	    else if (strcmp( argv[1], "update") == 0) { update(); }
+	    if (strcmp( argv[1], "edit") == 0) { edit(); }
+	    else { error(); }
     }
     return 0;
 }
