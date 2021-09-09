@@ -19,6 +19,23 @@ feel free to send a Push Request. It would be greatly appreciated :)
     - FalseGhost
 ```
 
+## Installation
+
+```
+curl -O https://raw.githubusercontent.com/ToBeatELIT3/Durga/master/tools/setup.sh
+chmod +x setup.sh
+./setup.sh
+```
+
+## Usage
+
+```
+> durga [FLAGS] <target>
+> durga --help
+> durga_conf
+```
+
+
 ## Creating Modules
 
 
@@ -52,28 +69,11 @@ pub fn run_extensions(open_port: u16, unresolved_target: &str) {
 // Its That Easy!
 
 ```
-
-## Usage
-
+## Durga Conf
 ```
-> Compile:
-    cargo build --release && sudo mv target/release/durga /bin/durga
-
-(Reccomended Way)
-> From Cargo:
-    cargo run <target> [FLAGS]
-    
-    ex: cargo run developer.htb -f
-
-```
-
-## Notes
-
-```
-I Recommend you run this tool via "cargo", as it makes it a lot easy to modify your
-modules on the fly, if you so need to. Create a bash-shortcut or somthing similar 
-to make it easier to call durga from your command line.
-
+- 'durga_conf edit' will open your extensions folder in vim 
+- 'durga_conf update' will apply any changes to your extensions file into durga
+- 'durga_conf upgrade' will fetch the latest release of durga, while saving your extensions
 ```
 
 ### TODO
@@ -82,6 +82,6 @@ to make it easier to call durga from your command line.
 
 - Refactor Fuction Calls to streamline the Control Flow
 
-- Create executable to put in /bin, that can call "cargo run etc etc" *for* us
+- Create executable to put in /bin, that can call "cargo run etc etc" *for* us (DONE)
 
-- Create executable to put in /bin, that can open the extensions file with vim
+- Create executable to put in /bin, that can open the extensions file with vim (DONE)
