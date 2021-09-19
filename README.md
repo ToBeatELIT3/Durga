@@ -86,3 +86,5 @@ pub fn run_extensions(open_port: u16, unresolved_target: &str) {
 - Create executable to put in /bin, that can call "cargo run etc etc" *for* us (DONE)
 
 - Create executable to put in /bin, that can open the extensions file with vim (DONE)
+
+- Make All Modules run simutaniously, when implementing an output project
