@@ -1,6 +1,6 @@
 name: durga
 version: "0.2.0"
-author: FalseGhost <tobeatelite@gmail.com>
+author: ToBeatElite <tobeatelite@gmail.com>
 about: Extensible Recon Tool
 args:
     - target_ip:
@@ -12,6 +12,10 @@ args:
         short: f
         long: --full-scan
         help: Full TCP Scan
+    - clean_scan:
+        short: c
+        long: --clean-scan
+        help: No Banner & No Modules
     - project_output:
         short: p
         long: --project

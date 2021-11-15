@@ -18,7 +18,7 @@ pub struct CommandModule {
 }
 
 impl CommandModule {
-    pub fn start(self) {
+    pub async fn start(self) {
         print!(
             "[*] {} > {}(Y/n){} ",
             self.title,
@@ -49,6 +49,7 @@ pub fn run_command(my_command: &str) {
     }
 }
 
+
 pub fn resolve_target(target: &str) -> Result<IpAddr, Box<dyn std::error::Error>> {
     match target.parse() {
         Ok(actual_ip) => Ok(actual_ip),
@@ -61,6 +62,7 @@ pub fn resolve_target(target: &str) -> Result<IpAddr, Box<dyn std::error::Error>
 
 pub async fn scan(target: IpAddr, full: bool, target_name: &str) {
     let ports = stream::iter(get_ports(full));
+    run_command(format!("touch /tmp/{}.txt", target_name).as_str());
 
     ports
         .for_each_concurrent(1000, |port| scan_port(target, port, full, target_name))
