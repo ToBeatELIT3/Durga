@@ -17,7 +17,7 @@ I am by no means a great programmer, and there are lots of places where this too
 improved, if you have any neat additions, or pherhaps streamlined systems from the tool, 
 feel free to send a Push Request. It would be greatly appreciated :)
 
-    - FalseGhost
+    - ToBeatElite
 ```
 
 ## Installation
