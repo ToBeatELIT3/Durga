@@ -17,7 +17,7 @@ I am by no means a great programmer, and there are lots of places where this too
 improved, if you have any neat additions, or pherhaps streamlined systems from the tool, 
 feel free to send a Push Request. It would be greatly appreciated :)
 
-    - FalseGhost
+    - ToBeatElite
 ```
 
 ## Installation
@@ -86,3 +86,5 @@ pub fn run_extensions(open_port: u16, unresolved_target: &str) {
 - Create executable to put in /bin, that can call "cargo run etc etc" *for* us (DONE)
 
 - Create executable to put in /bin, that can open the extensions file with vim (DONE)
+
+- Make All Modules run simutaniously, when implementing an output project
