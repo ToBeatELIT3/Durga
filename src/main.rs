@@ -7,7 +7,7 @@ use termion::color;
 mod extensions;
 
 #[tokio::main]
-3async fn main() {
+async fn main() {
 
     let yaml = clap::load_yaml!("../resources/cli.yaml");
     let argv = App::from_yaml(yaml).get_matches();
